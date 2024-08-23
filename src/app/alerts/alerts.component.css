@@ -1,0 +1,27 @@
+.alerts {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 1000;
+  }
+  
+  .alert {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    color: #fff;
+  }
+  
+  .alert.info {
+    background-color: #007bff;
+  }
+  
+  .alert.warning {
+    background-color: #ffc107;
+  }
+  
+  .alert.error {
+    background-color: #dc3545;
+  }
+  

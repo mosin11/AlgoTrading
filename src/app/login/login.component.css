@@ -1,0 +1,41 @@
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-header {
+    background: linear-gradient(45deg, #007bff, #00c6ff);
+  }
+  
+  .btn-primary {
+    background: linear-gradient(45deg, #007bff, #00c6ff);
+    border: none;
+  }
+  
+  .btn-primary:disabled {
+    background: #ccc;
+    border: none;
+  }
+  
+
+  .otp-inputs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .otp-box {
+    width: 40px; /* Adjust width as needed */
+    height: 40px; /* Adjust height as needed */
+    text-align: center;
+    font-size: 18px; /* Adjust font size as needed */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensure padding and border are included in width/height */
+  }
+  
+  .otp-box:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+  }
+  

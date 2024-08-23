@@ -1,0 +1,24 @@
+<div class="trade-management">
+    <h1>Trade Management</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Trade ID</th>
+          <th>Symbol</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trade of trades">
+          <td>{{ trade.id }}</td>
+          <td>{{ trade.symbol }}</td>
+          <td>{{ trade.quantity }}</td>
+          <td>{{ trade.price | currency }}</td>
+          <td>{{ trade.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,40 +1,60 @@
-.card {
-    margin-bottom: 1rem;
-  }
-  .card-header {
-    font-weight: bold;
-  }
-  .card-body {
-    background-color: #f8f9fa;
-  }
-  /* Customize table header and cell colors */
-.table thead th {
-  background-color: #767175;
-  color: white;
+.table-container {
+  max-height: 450px; /* Set your desired max height for the table */
+  overflow-y: auto;
+  position: relative; 
 }
 
-.table tbody tr:nth-child(odd) {
-  background-color: #f9f9f9;
+/* Hide the scrollbar */
+.table-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
-.table tbody tr:nth-child(even) {
-  background-color: #ffffff;
+.table-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-.text-success {
-  color: #28a745 !important;
+th, td {
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+table {
+   border-collapse: separate; 
+   border-spacing: 0;
+}
+thead.sticky-lg-top {
+  z-index: 1; /* Lower z-index for the sticky header */
+}
+/* Ensure the dropdown menu is scrollable and has proper styling */
+.dropdown-menu {
+  z-index: 1050;
+  max-height: 12.5rem; /* Limits the height of the dropdown menu */
+  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-x: hidden; /* Hides horizontal overflow */
+  border-radius: 0.375rem; /* Adds rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a shadow for better visibility */
+  background-color: #6c757d; /* Matches bg-secondary in Bootstrap */
+  color: #ffffff; /* Ensures text color is readable */
 }
 
-.text-danger {
-  color: #dc3545 !important;
+/* Customize the scrollbar for WebKit browsers */
+.dropdown-menu::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
 }
 
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+  border-radius: 4px;
+}
 
-.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
-  --bs-gutter-x: 15rem; /* Updated value */
-  --bs-gutter-y: 0;
-  width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
-  margin-right: auto;
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker color on hover */
+}
+
+/* Style for dropdown items */
+.dropdown-item {
+  white-space: nowrap; /* Prevents text wrapping */
+  text-overflow: ellipsis; /* Adds ellipsis for overflowing text */
+  overflow: hidden; /* Ensures text doesn't overflow */
 }

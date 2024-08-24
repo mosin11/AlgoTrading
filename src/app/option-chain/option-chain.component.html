@@ -1,71 +1,79 @@
-<!-- Your table here -->
 <div class="container mt-4">
-
-  <div class="d-flex justify-content-between align-items-center mb-3 bg-white p-3 border border-bottom">
+  <div class="row mb-2 justify-content-end">
     <!-- Input for Script Symbol -->
-    <div class="d-flex align-items-center position-relative">
-      <input type="text" id="scriptSymbol" class="form-control me-3" placeholder="Enter Script Symbol"
-        style="width: 200px;" />
+    <div class="col-md-2 d-flex ">
+      <div class="dropdown">
+        <button class="btn bg-secondary text-white dropdown-toggle" type="button" id="scriptDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ selectedScript || 'Select Script' }}
+        </button>
+        <ul class="dropdown-menu overflow-auto bg-secondary text-white" aria-labelledby="scriptDropdown">
+          <li *ngFor="let script of scriptList">
+            <button class="dropdown-item bg-secondary text-white" type="button" (click)="setScriptType(script)">
+              {{ script }}
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
-
+    
     <!-- Dropdown for Expiry Dates -->
-    <div class="dropdown">
-      <input type="text" class="form-control dropdown-toggle" id="expiryDropdown" data-bs-toggle="dropdown"
-        aria-expanded="false" value="{{ selectedExpiry }}" readonly>
-      <ul class="dropdown-menu" aria-labelledby="expiryDropdown">
-        <li *ngFor="let expiry of expiryDates">
-          <button class="dropdown-item" type="button" (click)="setExpiryDate(expiry)">
-            {{ expiry }}
-          </button>
-        </li>
-      </ul>
+    <div class="col-md-2 d-flex">
+      <div class="dropdown">
+        <button class="btn bg-secondary text-white dropdown-toggle" type="button" id="expiryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ selectedExpiry || 'Select Expiry' }}
+        </button>
+        <ul class="dropdown-menu overflow-auto bg-secondary text-white" aria-labelledby="expiryDropdown">
+          <li *ngFor="let expiry of expiryDates">
+            <button class="dropdown-item bg-secondary text-white" type="button" (click)="setExpiryDate(expiry)">
+              {{ expiry }}
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-  <div class="text-center">
+
+  <div class="text-center border border-dark rounded-1" style="background-color: #3e93b8 !important;">
     <h2>Option Chain Data</h2>
-</div>
-  <div class="table-responsive">
-    <table class="table table-striped table-bordered">
-      <thead>
+  </div>
+
+  <div class="table-responsive table-container border border-dark rounded-1">
+    <table class="table table-striped table-hover border border-dark rounded-1 table-bordered">
+      <thead class="sticky-lg-top">
         <tr>
           <th colspan="5" class="text-center bg-primary text-white">CALLS</th>
-          <th></th>
-          <th colspan="5" class="text-center bg-primary text-white">PUTS</th>
+          <th rowspan="2" class="text-center bg-secondary">Strike Price</th>
+          <th colspan="4" class="text-center bg-primary text-white">PUTS</th>
         </tr>
         <tr>
-          <th class="text-center" width="5%">Volume</th>
-          <th class="text-center" width="5%">OI</th>
-          <th class="text-center" width="5%">OI Chg.(Chg%)</th>
-          <th class="text-center" width="5%">LTP</th>
-          <th class="text-center" width="5%">LTP (Chg%)</th>
-          <th class="text-center" width="5%">Strike Price</th>
-          <th class="text-center" width="5%">LTP (Chg%)</th>
-          <th class="text-center" width="5%">OI</th>
-          <th class="text-center" width="5%">OI Chg.(Chg%)</th>
-          <th class="text-center" width="5%">Volume</th>
+          <th class="text-center bg-secondary col">Volume</th>
+          <th class="text-center bg-secondary col">OI</th>
+          <th class="text-center bg-secondary col">OI Chg.(Chg%)</th>
+          <th class="text-center bg-secondary col">LTP</th>
+          <th class="text-center bg-secondary col">LTP (Chg%)</th>
+          <th class="text-center bg-secondary col">LTP (Chg%)</th>
+          <th class="text-center bg-secondary col">OI</th>
+          <th class="text-center bg-secondary col">OI Chg.(Chg%)</th>
+          <th class="text-center bg-secondary col">Volume</th>
         </tr>
       </thead>
-      <tbody class="text-center">
+      <tbody class="text-center table-secondary table-body">
         <tr *ngFor="let option of optionsData">
           <td>{{ option.CallVolume }}</td>
           <td>{{ option.CallOI }}</td>
-          <td
-            [ngClass]="{'text-success': option.CallOIPerChg.includes('+'), 'text-danger': option.CallOIPerChg.includes('-')}">
+          <td [ngClass]="{'text-success': option.CallOIPerChg.includes(''), 'text-danger': option.CallOIPerChg.includes('-')}">
             {{ option.CallOIPerChg }}
           </td>
           <td>{{ option.CallLTP }}</td>
-          <td
-            [ngClass]="{'text-success': option.CallPricePerChange.includes('+'), 'text-danger': option.CallPricePerChange.includes('-')}">
+          <td [ngClass]="{'text-success': option.CallPricePerChange.includes(''), 'text-danger': option.CallPricePerChange.includes('-')}">
             {{ option.CallPricePerChange }}
           </td>
           <td>{{ option.strikeprice }}</td>
-          <td
-            [ngClass]="{'text-success': option.PutPriceperChange.includes('+'), 'text-danger': option.PutPriceperChange.includes('-')}">
+          <td [ngClass]="{'text-success': option.PutPriceperChange.includes(''), 'text-danger': option.PutPriceperChange.includes('-')}">
             {{ option.PutPriceperChange }}
           </td>
           <td>{{ option.PutOI }}</td>
-          <td
-            [ngClass]="{'text-success': option.PutOIPerChg.includes('+'), 'text-danger': option.PutOIPerChg.includes('-')}">
+          <td [ngClass]="{'text-success': option.PutOIPerChg.includes(''), 'text-danger': option.PutOIPerChg.includes('-')}">
             {{ option.PutOIPerChg }}
           </td>
           <td>{{ option.PutVolume }}</td>

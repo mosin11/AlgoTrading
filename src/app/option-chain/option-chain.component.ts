@@ -50,9 +50,11 @@ export class OptionChainComponent implements OnInit {
   optionsData: OptionData[] = [];
   expiryDates: string[] = [];
   selectedExpiry: any;
+  selectedScript: any;
   private fetchInterval: any;
   private wsSubscription: Subscription | null = null;
   subIndices: string = 'nse_cm|Nifty Bank';
+  scriptList: string[] = ["BANK NIFTY","NIFTY"];
 
   constructor(private apiService: ApiService,
     private wsService: KotakWebSocketService) { }
@@ -61,6 +63,7 @@ export class OptionChainComponent implements OnInit {
 
     this.token = localStorage.getItem('token') || '';
     this.sid = localStorage.getItem('sid') || '';
+    this.selectedScript =this.scriptList[0];
 
     this.fetchExpiryDates();
     // this.setupFetchInterval();
@@ -143,6 +146,10 @@ export class OptionChainComponent implements OnInit {
     this.fetchOptionChainData()
     // Perform any additional actions needed when an expiry date is selected
 }
+setScriptType(script: string): void {
+  this.selectedScript = script;
+ 
+}
 
 setupWebSocket(): void {
   this.wsService.loadScript('assets/hslib.js')
@@ -178,8 +185,6 @@ handleWebSocketMessage(message: any): void {
   
   // You can update `optionsData` or other state variables here 
 }
-
-
 
 
 

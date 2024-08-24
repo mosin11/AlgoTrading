@@ -3,7 +3,7 @@
 REM Initialize a new Git repository
 git init
 git add .
-git commit -m "web socket added"
+git commit -m "options chain added in dashbord"
 git branch -M main
 
 REM Wait for 5 seconds before proceeding

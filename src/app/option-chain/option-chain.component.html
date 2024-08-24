@@ -1,0 +1,76 @@
+<!-- Your table here -->
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-3 bg-white p-3 border border-bottom">
+    <!-- Input for Script Symbol -->
+    <div class="d-flex align-items-center position-relative">
+      <input type="text" id="scriptSymbol" class="form-control me-3" placeholder="Enter Script Symbol"
+        style="width: 200px;" />
+    </div>
+
+    <!-- Dropdown for Expiry Dates -->
+    <div class="dropdown">
+      <input type="text" class="form-control dropdown-toggle" id="expiryDropdown" data-bs-toggle="dropdown"
+        aria-expanded="false" value="{{ selectedExpiry }}" readonly>
+      <ul class="dropdown-menu" aria-labelledby="expiryDropdown">
+        <li *ngFor="let expiry of expiryDates">
+          <button class="dropdown-item" type="button" (click)="setExpiryDate(expiry)">
+            {{ expiry }}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="text-center">
+    <h2>Option Chain Data</h2>
+</div>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th colspan="5" class="text-center bg-primary text-white">CALLS</th>
+          <th></th>
+          <th colspan="5" class="text-center bg-primary text-white">PUTS</th>
+        </tr>
+        <tr>
+          <th class="text-center" width="5%">Volume</th>
+          <th class="text-center" width="5%">OI</th>
+          <th class="text-center" width="5%">OI Chg.(Chg%)</th>
+          <th class="text-center" width="5%">LTP</th>
+          <th class="text-center" width="5%">LTP (Chg%)</th>
+          <th class="text-center" width="5%">Strike Price</th>
+          <th class="text-center" width="5%">LTP (Chg%)</th>
+          <th class="text-center" width="5%">OI</th>
+          <th class="text-center" width="5%">OI Chg.(Chg%)</th>
+          <th class="text-center" width="5%">Volume</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let option of optionsData">
+          <td>{{ option.CallVolume }}</td>
+          <td>{{ option.CallOI }}</td>
+          <td
+            [ngClass]="{'text-success': option.CallOIPerChg.includes('+'), 'text-danger': option.CallOIPerChg.includes('-')}">
+            {{ option.CallOIPerChg }}
+          </td>
+          <td>{{ option.CallLTP }}</td>
+          <td
+            [ngClass]="{'text-success': option.CallPricePerChange.includes('+'), 'text-danger': option.CallPricePerChange.includes('-')}">
+            {{ option.CallPricePerChange }}
+          </td>
+          <td>{{ option.strikeprice }}</td>
+          <td
+            [ngClass]="{'text-success': option.PutPriceperChange.includes('+'), 'text-danger': option.PutPriceperChange.includes('-')}">
+            {{ option.PutPriceperChange }}
+          </td>
+          <td>{{ option.PutOI }}</td>
+          <td
+            [ngClass]="{'text-success': option.PutOIPerChg.includes('+'), 'text-danger': option.PutOIPerChg.includes('-')}">
+            {{ option.PutOIPerChg }}
+          </td>
+          <td>{{ option.PutVolume }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

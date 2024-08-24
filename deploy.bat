@@ -7,7 +7,7 @@ REM Add all files to the staging area
 git add .
 
 REM Commit the changes
-git commit -m "initial commit"
+git commit -m "web soclet addedd"
 
 REM Rename the default branch to 'main'
 git branch -M main

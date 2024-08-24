@@ -1,19 +1,42 @@
-<div class="dashboard">
-    <h1>Trading Dashboard</h1>
-    <div class="metrics">
-      <div class="metric">
-        <h2>Current Price</h2>
-        <p>{{ currentPrice }}</p>
+<div class="container">
+  <h1>Dashboard</h1>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div>
+        <label for="token_id">Token</label>
+        <input type="text" id="token_id" [(ngModel)]="token" readonly />
       </div>
-      <div class="metric">
-        <h2>Portfolio Value</h2>
-        <p>{{ portfolioValue  }}</p>
+      <div>
+        <label for="sid">SID</label>
+        <input type="text" id="sid" [(ngModel)]="sid" readonly />
       </div>
-      <div class="metric">
-        <h2>Trade Performance</h2>
-        <p>{{ tradePerformance }}%</p>
+      <div>
+        <label for="serverid">HandshakeServerId</label>
+        <input type="text" id="serverid" [(ngModel)]="handshakeServerId" />
       </div>
+      <div>
+        <label for="channel_number">Channel Number</label>
+        <input type="text" id="channel_number" [(ngModel)]="channelNumber" />
+      </div>
+
+      <button (click)="wconnect('Hsm')">Connect HSM</button>
+      <button (click)="wconnect('Hsi')">Connect HSI</button>
+      
+      <button (click)="subscribeToScrips()">Subscribe Scrips</button>
+      <button (click)="subscribeToIndices()">Subscribe Indices</button>
+      <button (click)="subscribeToDepth()">Subscribe Depth</button>
     </div>
-    <!-- <app-alerts></app-alerts> -->
   </div>
-  
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h2>Streaming Scrips</h2>
+      <textarea id="stream_scrips" rows="10" cols="50" [(ngModel)]="streamScrips"></textarea>
+    </div>
+    <div class="col-sm-6">
+      <h2>Streaming Orders</h2>
+      <textarea id="stream_scrips1" rows="10" cols="50" [(ngModel)]="streamScrips1"></textarea>
+    </div>
+  </div>
+</div>

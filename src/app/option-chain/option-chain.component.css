@@ -1,0 +1,40 @@
+.card {
+    margin-bottom: 1rem;
+  }
+  .card-header {
+    font-weight: bold;
+  }
+  .card-body {
+    background-color: #f8f9fa;
+  }
+  /* Customize table header and cell colors */
+.table thead th {
+  background-color: #767175;
+  color: white;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+  --bs-gutter-x: 15rem; /* Updated value */
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-right: auto;
+}

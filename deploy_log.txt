@@ -1,0 +1,13 @@
+404.html file created
+.nojekyll file created
+🚀 Uploading via git, please wait...
+Cloning https://github.com/mosin11/kotakapi.git into E:\kotak\frontend\node_modules\.cache\gh-pages\https!github.com!mosin11!kotakapi.git
+Cleaning
+Fetching origin
+Checking out origin/gh-pages 
+Removing files
+Copying files
+Adding all
+Committing
+Pushing
+🌟 Successfully published via angular-cli-ghpages! Have a nice day!

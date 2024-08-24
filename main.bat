@@ -41,7 +41,7 @@ timeout /t 5 /nobreak
 
 REM Call the deployment batch file
 echo "Calling deploy script..."
-call deploy.bat
+call ./deploy.bat
 
 REM Exit the script
 exit /b 0

@@ -9,8 +9,8 @@ export class ApiService {
   private BASE_URL="http://localhost:3000"
   private loginURL = `${this.BASE_URL}/api/authenticate`;
   private submitOTP = `${this.BASE_URL}/api/submitotp`;
-  private optionchainURL = `${this.BASE_URL}/api/optionchain`;
-  private expiryDatesURL = `${this.BASE_URL}/api/expirydates`;
+  private optionchainURL = `${this.BASE_URL}/data/optionchain`;
+  private expiryDatesURL = `${this.BASE_URL}/data/expirydates`;
 
 
   constructor(private http: HttpClient) {}
@@ -34,8 +34,14 @@ export class ApiService {
     const token = localStorage.getItem("token");
     const sid = localStorage.getItem("sid");
     const accessToken = localStorage.getItem("accessToken");
-    const body = JSON.stringify({ symbol, expirydate, token, sid, accessToken });
 
+    if (!this.isValidSymbol(symbol)) {
+      console.error('Selected symbol in service is empty or invalid.');
+      return Promise.reject('Invalid symbol');
+    }
+
+    const body = JSON.stringify({ symbol, expirydate, token, sid, accessToken });
+    
     return fetch(this.optionchainURL, {
       method: 'POST',
       headers: {
@@ -50,8 +56,12 @@ export class ApiService {
     const token = localStorage.getItem("token");
     const sid = localStorage.getItem("sid");
     const accessToken = localStorage.getItem("accessToken");
+    if (!this.isValidSymbol(symbol)) {
+      console.error('Selected symbol in service is empty or invalid.');
+      return Promise.reject('Invalid symbol');
+    }
     const body = JSON.stringify({ symbol,  token, sid, accessToken });
-
+   
     return fetch(this.expiryDatesURL, {
       method: 'POST',
       headers: {
@@ -61,5 +71,9 @@ export class ApiService {
     }).then(response => response.json());
   }
 
+
+  private isValidSymbol(symbol?: string): boolean {
+    return symbol !== undefined && symbol.trim() !== '';
+  }
 
 }

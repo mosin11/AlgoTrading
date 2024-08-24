@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("sid",response.data.sid);
           localStorage.setItem("rid",response.data.rid);
           console.log('OTP verified successfully');
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/home']);
           // Handle successful OTP verification (e.g., redirect to dashboard)
         }
       } catch (error) {

@@ -1,6 +1,7 @@
 
   import { Injectable, Inject, Renderer2, RendererFactory2 } from '@angular/core';
   import { DOCUMENT } from '@angular/common';
+  import { Subject } from 'rxjs';
 
 
   @Injectable({
@@ -11,6 +12,10 @@
     private userWS: HSWebSocket | null = null;
     private hsWs: WebSocket | null = null;
     private messageQueue: any[] = []; // Queue for messages to be sent
+    private userWSMessageSubject = new Subject<MessageEvent>();
+    private hsWSMessageSubject = new Subject<MessageEvent>();
+    userWSMessage$ = this.userWSMessageSubject.asObservable();
+    hsWSMessage$ = this.hsWSMessageSubject.asObservable();
 
     constructor(@Inject(DOCUMENT) private document: Document, private rendererFactory: RendererFactory2) {
       this.renderer = this.rendererFactory.createRenderer(null, null);
@@ -61,7 +66,8 @@
     };
 
     this.userWS.onmessage = (msg: MessageEvent) => {
-      console.log('[onmessage HSM Socket message]: Received message', msg);
+     // console.log('[onmessage HSM Socket message]: Received message', msg);
+      this.userWSMessageSubject.next(msg); 
       callback(msg);
     };
   }
@@ -90,6 +96,7 @@
 
     this.hsWs.onmessage = (msg: MessageEvent) => {
       console.log('[onmessage HSI Socket]: Received message', msg);
+      this.hsWSMessageSubject.next(msg); // Emit the received message
       callback(msg);
     };
   }

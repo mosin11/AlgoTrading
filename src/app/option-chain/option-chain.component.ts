@@ -22,6 +22,7 @@ export class OptionChainComponent implements OnInit {
   tolerance: number = 50; // Define your tolerance level here
   optionsData: OptionData[] = [];
   presentIndexData: PresentIndexData[] = [] ;
+  sortedStrikePrices: number[] = [];
   expiryDates: string[] = [];
   selectedExpiry: any;
   selectedScript: any;
@@ -92,19 +93,18 @@ export class OptionChainComponent implements OnInit {
           CallPricePerChange: this.convertToPercentage(option.CallPricePerChange),
           PutPriceperChange: this.convertToPercentage(option.PutPriceperChange)
         }));
-        this.sortOptionsData(); // Sort data after fetching
+        this.sortStrikePrices(); // Sort data after fetching
       })
       .catch(error => {
         console.error('Error fetching option chain data', error);
       });
   }
 
-  sortOptionsData(): void {
-    this.optionsData.sort((a, b) => {
-      const aStrikePrice = parseInt(a.strikeprice, 10); // Convert to integer
-      const bStrikePrice = parseInt(b.strikeprice, 10); // Convert to integer
-      return bStrikePrice - aStrikePrice; // For descending order
-    });
+  sortStrikePrices(): void {
+    // Extract the strikeprice values
+    this.sortedStrikePrices = this.optionsData
+      .map(option => parseInt(option.strikeprice, 10))
+      .sort((a, b) => b - a); // Sort in descending order
   }
   
   // setupFetchInterval(): void {

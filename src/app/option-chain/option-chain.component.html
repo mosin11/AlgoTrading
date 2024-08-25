@@ -42,75 +42,82 @@
   </div>
 
   <div class="table-responsive table-container border border-dark rounded-1">
-    <table class="table  table-hover  table-bordered">
+    <table class="table  table-hover">
       <thead class="sticky-lg-top">
         <tr>
           <th colspan="5" class="text-center bg-primary text-white">CALLS</th>
-          <th rowspan="2" class="text-center bg-secondary">Strike Price</th>
-          <th colspan="4" class="text-center bg-primary text-white">PUTS</th>
+          <th rowspan="2"  class="text-center bg-secondary">Strike Price</th>
+          <th colspan="5" class="text-center bg-primary text-white">PUTS</th>
         </tr>
         <tr>
-          <th class="text-center bg-secondary col">Volume</th>
-          <th class="text-center bg-secondary col">OI</th>
-          <th class="text-center bg-secondary col">OI Chg.(Chg%)</th>
-          <th class="text-center bg-secondary col">LTP</th>
-          <th class="text-center bg-secondary col">LTP (Chg%)</th>
-          <th class="text-center bg-secondary col">LTP (Chg%)</th>
-          <th class="text-center bg-secondary col">OI</th>
-          <th class="text-center bg-secondary col">OI Chg.(Chg%)</th>
-          <th class="text-center bg-secondary col">Volume</th>
+          <th class="text-center bg-info col">Volume</th>
+          <th class="text-center bg-info col">OI</th>
+          <th class="text-center bg-info col">OI Chg.(Chg%)</th>
+          <th class="text-center bg-info col">LTP (Chg%)</th>
+          <th class="text-center bg-info col">LTP</th>
+          <th class="text-center bg-info col">LTP</th>
+          <th class="text-center bg-info col">LTP (Chg%)</th>
+          <th class="text-center bg-info col">OI</th>
+          <th class="text-center bg-info col">OI Chg.(Chg%)</th>
+          <th class="text-center bg-info col">Volume</th>
         </tr>
       </thead>
-      <tbody class="text-center table-body">
+      <tbody class="text-center border border-dark table-bordered table-body">
         <tr *ngFor="let option of optionsData">
           <td
           [ngClass]="{
-            'bg-secondary border border-dark': (option.strikeprice | stringToNumber) > ivValue, 'border border-dark bg-light': (option.strikeprice | stringToNumber) < ivValue,
-            'text-success': option.CallVolume.includes(''), 'text-danger': option.CallVolume.includes('-')}"
+            'bg-secondary  ': (option.strikeprice | stringToNumber) < ivValue, 'bg-light ': (option.strikeprice | stringToNumber) > ivValue,
+            'text-success': !option.CallVolume.includes('-'), 'text-danger': option.CallVolume.includes('-')}"
           >{{ option.CallVolume }}</td>
           <td
           [ngClass]="{
-            'bg-secondary border border-dark': (option.strikeprice | stringToNumber) > ivValue, 'border border-dark bg-light': (option.strikeprice | stringToNumber) < ivValue,
-            'text-success': option.CallOI.includes(''), 'text-danger': option.CallOI.includes('-')}"
+            'bg-secondary ': (option.strikeprice | stringToNumber) < ivValue, 'bg-light ': (option.strikeprice | stringToNumber) > ivValue,
+            'text-success': !option.CallOI.includes('-'), 'text-danger': option.CallOI.includes('-')}"
           >{{ option.CallOI }}</td>
           <td [ngClass]="{
-            'bg-secondary border border-dark': (option.strikeprice | stringToNumber) > ivValue, 'border border-dark bg-light': (option.strikeprice | stringToNumber) < ivValue,
-            'text-success': option.CallOIPerChg.includes(''), 'text-danger': option.CallOIPerChg.includes('-')}">
+            'bg-secondary ': (option.strikeprice | stringToNumber) < ivValue, 'bg-light ': (option.strikeprice | stringToNumber) > ivValue,
+            'text-success': !option.CallOIPerChg.includes('-'), 'text-danger': option.CallOIPerChg.includes('-')}">
             {{ option.CallOIPerChg }}
           </td>
-          <td
-          [ngClass]="{
-            'bg-secondary border border-dark': (option.strikeprice | stringToNumber) > ivValue, 'border border-dark bg-light': (option.strikeprice | stringToNumber) < ivValue,
-            'text-success': option.CallLTP.includes(''), 'text-danger': option.CallLTP.includes('-')}"
-          >{{ option.CallLTP }}</td>
+         
           <td [ngClass]="{
-            'bg-secondary border border-dark': (option.strikeprice | stringToNumber) > ivValue, 'border border-darkbg-light': (option.strikeprice | stringToNumber) < ivValue,
-            'text-success': option.CallPricePerChange.includes(''), 'text-danger': option.CallPricePerChange.includes('-')}">
+            'bg-secondary ': (option.strikeprice | stringToNumber) < ivValue, ' bg-light': (option.strikeprice | stringToNumber) > ivValue,
+            'text-success': !option.CallPricePerChange.includes('-'), 'text-danger': option.CallPricePerChange.includes('-')}">
             {{ option.CallPricePerChange }}
           </td>
           <td
           [ngClass]="{
-            'bg-secondary border border-dark': (option.strikeprice | stringToNumber) < ivValue, 'border border-dark bg-light': (option.strikeprice | stringToNumber) > ivValue,}"
+            'bg-secondary ': (option.strikeprice | stringToNumber) < ivValue, 'bg-light ': (option.strikeprice | stringToNumber) > ivValue,
+            'text-success': !option.CallLTP.includes('-'), 'text-danger': option.CallLTP.includes('-')}"
+          >{{ option.CallLTP }}</td>
+          <td
+          [ngClass]="{
+            'bg-secondary ': (option.strikeprice | stringToNumber) < ivValue, ' bg-light': (option.strikeprice | stringToNumber) > ivValue,}"
           >{{ option.strikeprice }}</td>
           <td [ngClass]="{
-            'bg-secondary border border-dark': (option.strikeprice | stringToNumber) < ivValue, 'border border-dark bg-secondary': (option.strikeprice | stringToNumber) <= ivValue,
-            'text-success': option.PutPriceperChange.includes(''), 'text-danger': option.PutPriceperChange.includes('-')}">
+            'bg-secondary ': (option.strikeprice | stringToNumber) > ivValue, ' bg-secondary': (option.strikeprice | stringToNumber) > ivValue,
+            'text-success': !option.PutLTP.includes('-'), 'text-danger': option.PutLTP.includes('-')}">
+            {{ option.PutLTP }}
+          </td>
+          <td [ngClass]="{
+            'bg-secondary ': (option.strikeprice | stringToNumber) > ivValue, ' bg-secondary': (option.strikeprice | stringToNumber) > ivValue,
+            'text-success': !option.PutPriceperChange.includes('-'), 'text-danger': option.PutPriceperChange.includes('-')}">
             {{ option.PutPriceperChange }}
           </td>
           <td
           [ngClass]="{
-            'bg-secondary border border-dark ': (option.strikeprice | stringToNumber) < ivValue, 'border border-dark bg-secondary': (option.strikeprice | stringToNumber) <= ivValue,
-            'text-success': option.PutOI.includes(''), 'text-danger': option.PutOI.includes('-')}"
+            'bg-secondary  ': (option.strikeprice | stringToNumber) > ivValue, ' bg-secondary': (option.strikeprice | stringToNumber) > ivValue,
+            'text-success': !option.PutOI.includes('-'), 'text-danger': option.PutOI.includes('-')}"
           >{{ option.PutOI }}</td>
           <td [ngClass]="{
-            'bg-secondary border border-dark ': (option.strikeprice | stringToNumber) < ivValue, 'border border-dark bg-secondary': (option.strikeprice | stringToNumber) <= ivValue,
-            'text-success': option.PutOIPerChg.includes(''), 'text-danger': option.PutOIPerChg.includes('-')}">
+            'bg-secondary  ': (option.strikeprice | stringToNumber) > ivValue, ' bg-secondary': (option.strikeprice | stringToNumber) > ivValue,
+            'text-success': !option.PutOIPerChg.includes('-'), 'text-danger': option.PutOIPerChg.includes('-')}">
             {{ option.PutOIPerChg }}
           </td>
           <td
           [ngClass]="{
-            'bg-secondary border border-dark': (option.strikeprice | stringToNumber) < ivValue, 'border border-dark bg-secondary': (option.strikeprice | stringToNumber) <= ivValue,
-            'text-success': option.PutVolume.includes(''), 'text-danger': option.PutVolume.includes('-')}"
+            'bg-secondary ': (option.strikeprice | stringToNumber) > ivValue, ' bg-secondary': (option.strikeprice | stringToNumber) > ivValue,
+            'text-success': !option.PutVolume.includes('-'), 'text-danger': option.PutVolume.includes('-')}"
           >{{ option.PutVolume }}</td>
         </tr>
       </tbody>

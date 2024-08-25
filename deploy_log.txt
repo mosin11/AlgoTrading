@@ -1,7 +1,7 @@
 404.html file created
 .nojekyll file created
 🚀 Uploading via git, please wait...
-Cloning https://github.com/mosin11/kotakapi.git into E:\kotak\frontend\node_modules\.cache\gh-pages\https!github.com!mosin11!kotakapi.git
+Cloning https://github.com/mosin11/AlgoTrading.git into E:\Kotak\AlgoTrading\node_modules\.cache\gh-pages\https!github.com!mosin11!AlgoTrading.git
 Cleaning
 Fetching origin
 Checking out origin/gh-pages 

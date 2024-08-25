@@ -1,4 +1,5 @@
-404.html file created
+index.html could not be copied to 404.html. Proceeding without it.
+Diagnostic info: ENOENT: no such file or directory, lstat 'E:\Kotak\AlgoTrading\dist\frontend\browser\index.html'
 .nojekyll file created
 🚀 Uploading via git, please wait...
 Cloning https://github.com/mosin11/AlgoTrading.git into E:\Kotak\AlgoTrading\node_modules\.cache\gh-pages\https!github.com!mosin11!AlgoTrading.git

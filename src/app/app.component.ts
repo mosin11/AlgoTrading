@@ -10,7 +10,7 @@ import jwtDecode from 'jwt-decode';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
+  title = 'AlgoTrading';
   ngOnInit() {
     this.clearLocalStorageOnceDaily();
     this.checkTokenExpiration();

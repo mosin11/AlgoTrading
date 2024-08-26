@@ -21,16 +21,20 @@
     "@angular/router": "^18.2.0",
     "bootstrap": "5.3.3",
     "jwt-decode": "4.0.0",
+    "moment": "2.30.1",
+    "ngx-csv-parser": "2.0.0",
+    "papaparse": "5.4.1",
     "rxjs": "7.8.1",
     "socket.io-client": "4.7.5",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.10"
+    "zone.js": "0.14.10"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.0",
     "@angular/cli": "^18.2.0",
     "@angular/compiler-cli": "^18.2.0",
     "@types/jasmine": "~5.1.0",
+    "@types/papaparse": "5.3.14",
     "angular-cli-ghpages": "2.0.1",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",

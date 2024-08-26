@@ -909,11 +909,11 @@ function loadAllJScripFiles() {
         })
     }
 }
-loadAllJScripFiles();
+loadAllJScripFiles();debugger
 var userSocket = null;
 var ws = null;
 var hsWrapper = null;
-var HSWebSocket = (function() {
+var HSWebSocket = (function() { debugger
     function a(c) {
         userSocket = this;
         userSocket.OPEN = 0;

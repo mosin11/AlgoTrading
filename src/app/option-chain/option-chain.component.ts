@@ -5,6 +5,7 @@ import { KotakWebSocketService } from '../services/kotak-websocket.service';
 import { Subscription } from 'rxjs';
 import { ExpiryData, OptionData, PresentIndexData } from '../model/option-data.model';
 import { StringToNumberPipe } from '../pipes/string-to-number.pipe';
+import { ScripMasterService } from '../services/scrip-master.service';
 
 
 @Component({
@@ -37,7 +38,8 @@ export class OptionChainComponent implements OnInit {
   scriptList: string[] = Object.keys(this.scriptMap);
 
   constructor(private apiService: ApiService,
-    private wsService: KotakWebSocketService) { }
+    private wsService: KotakWebSocketService,
+    private scripMasterService: ScripMasterService) { }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('token') || '';
@@ -45,6 +47,7 @@ export class OptionChainComponent implements OnInit {
     this.selectedScript = this.scriptList[0];
     this.fetchExpiryDates();
     this.setupWebSocket();
+    this.loadScripMaster();
   }
 
   ngOnDestroy(): void {
@@ -223,5 +226,14 @@ export class OptionChainComponent implements OnInit {
     }, 0); // Delay to ensure the DOM is updated
   }
 
+
+  async loadScripMaster() {
+    try {
+      const data = await this.scripMasterService.scripMasterInit('nse');
+      console.log('Scrip Master Data:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
 
 }

@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "postbuild": "cp dist/your-project-name/index.html dist/your-project-name/404.html",
+    "build:prod": "npm-run-all build postbuild"
   },
   "private": true,
   "dependencies": {

@@ -210,7 +210,6 @@ export class OptionChainComponent implements OnInit {
         const strikePriceCell = row.querySelector('td:nth-child(6)'); // Adjust the index based on your table
         if (strikePriceCell) {
           const strikePrice = parseFloat(strikePriceCell.textContent || '0');
-          debugger
           if (this.isWithinTolerance(strikePrice, this.ivValue, this.tolerance)) {
             row.classList.add('table-danger');            
             //row.style.backgroundColor = 'yellow'; // Apply inline style directly

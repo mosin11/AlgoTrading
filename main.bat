@@ -3,7 +3,7 @@
 REM Initialize a new Git repository
 git init
 git add .
-git commit -m "options token remove logic added"
+git commit -m "websocket working"
 git branch -M main
 
 REM Wait for 5 seconds before proceeding
@@ -25,7 +25,9 @@ REM npm install -g angular-cli-ghpages
 
 REM Wait for 5 seconds before proceeding
 timeout /t 2 /nobreak
-
+npm run build:prod
+ng add angular-cli-ghpages
+ng deploy --base-href=/AlgoTrading/
 REM Build the project
 echo "Building the project..."
 ng build --configuration production --base-href /AlgoTrading/ > build_log.txt 2>&1

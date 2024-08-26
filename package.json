@@ -1,13 +1,13 @@
 {
-  "name": "frontend",
-  "version": "0.0.0",
+  "name": "algotrading",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "postbuild": "cp dist/your-project-name/index.html dist/your-project-name/404.html",
+    "postbuild": "cp dist/algotrading/browser/index.html dist/algotrading/browser/404.html",
     "build:prod": "npm-run-all build postbuild"
   },
   "private": true,
@@ -32,12 +32,14 @@
     "@angular/cli": "^18.2.0",
     "@angular/compiler-cli": "^18.2.0",
     "@types/jasmine": "~5.1.0",
+    "angular-cli-ghpages": "2.0.1",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "npm-run-all": "4.1.5",
     "typescript": "~5.5.2"
   }
 }

@@ -27,11 +27,10 @@ REM Wait for 5 seconds before proceeding
 timeout /t 2 /nobreak
 npm run build:prod
 ng add angular-cli-ghpages
-ng deploy --base-href=/AlgoTrading/
 REM Build the project
 echo "Building the project..."
 ng build --configuration production --base-href /AlgoTrading/ > build_log.txt 2>&1
-
+ng deploy --base-href=/AlgoTrading/
 REM Check if the build command succeeded
 if %ERRORLEVEL% neq 0 (
     echo "Build failed. Check build_log.txt for details."

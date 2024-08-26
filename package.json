@@ -7,7 +7,6 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "postbuild": "cp dist/algotrading/browser/index.html dist/algotrading/browser/404.html",
     "build:prod": "npm-run-all build postbuild"
   },
   "private": true,

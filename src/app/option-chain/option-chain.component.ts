@@ -52,6 +52,7 @@ export class OptionChainComponent implements OnInit {
     this.selectedScript = this.scriptList[0];
     this.fetchExpiryDates();
     this.setupWebSocket();
+ //   this.setupFetchInterval();
   }
 
   ngOnDestroy(): void {
@@ -74,7 +75,8 @@ export class OptionChainComponent implements OnInit {
         this.expiryDates = data.data.map((item: ExpiryData) => item.readableExpiryDate);
         if (this.expiryDates.length > 0) {
           this.selectedExpiry = this.expiryDates[0];
-          this.loadScripMaster();
+         // this.loadScripMaster();
+         this.fetchOptionChainData();
         }
       })
       .catch(error => {
@@ -84,27 +86,28 @@ export class OptionChainComponent implements OnInit {
 
   fetchOptionChainData(): void {
     const expiryDate = this.selectedExpiry;
-    // if (!expiryDate || expiryDate.trim() === '') {
-    //   console.error('Selected Expiry Date is empty or invalid.');
-    //   return; // Exit the method early if the expiryDate is invalid
-    // }
-    // this.apiService.optionchain(this.selectedScript, expiryDate)
-    //   .then(data => {
-    //     this.optionsData = data.data;
-    //     // Convert to percentage
-    //     // console.log("this.optionsData",this.optionsData)
-    //     this.optionsData = this.optionsData.map(option => ({
-    //       ...option,
-    //       CallOIPerChg: this.convertToPercentage(option.CallOIPerChg),
-    //       PutOIPerChg: this.convertToPercentage(option.PutOIPerChg),
-    //       CallPricePerChange: this.convertToPercentage(option.CallPricePerChange),
-    //       PutPriceperChange: this.convertToPercentage(option.PutPriceperChange)
-    //     }));
-    //     this.sortStrikePrices(); // Sort data after fetching
-    //   })
-    //   .catch(error => {
-    //     console.error('Error fetching option chain data', error);
-    //   });
+    if (!expiryDate || expiryDate.trim() === '') {
+      console.error('Selected Expiry Date is empty or invalid.');
+      return; // Exit the method early if the expiryDate is invalid
+    }
+    this.apiService.optionchain(this.selectedScript, expiryDate)
+      .then(data => {
+        this.optionsData = data.data;
+        // Convert to percentage
+        // console.log("this.optionsData",this.optionsData)
+        this.optionsData = this.optionsData.map(option => ({
+          ...option,
+          CallOIPerChg: this.convertToPercentage(option.CallOIPerChg),
+          PutOIPerChg: this.convertToPercentage(option.PutOIPerChg),
+          CallPricePerChange: this.convertToPercentage(option.CallPricePerChange),
+          PutPriceperChange: this.convertToPercentage(option.PutPriceperChange)
+        }));
+        this.sortStrikePrices(); // Sort data after fetching
+        //this.setupFetchInterval()
+      })
+      .catch(error => {
+        console.error('Error fetching option chain data', error);
+      });
 
 
 
@@ -119,11 +122,11 @@ export class OptionChainComponent implements OnInit {
       .sort((a, b) => b - a); // Sort in descending order
   }
   
-  // setupFetchInterval(): void {
-  //   this.fetchInterval = setInterval(() => {
-  //     this.fetchOptionChainData();
-  //   }, 2000); // 2000 milliseconds = 2 seconds
-  // }
+  setupFetchInterval(): void {
+    this.fetchInterval = setInterval(() => {
+      this.fetchOptionChainData();
+    }, 2000); // 2000 milliseconds = 2 seconds
+  }
 
 
   convertToPercentage(value: string): string {
@@ -236,18 +239,18 @@ export class OptionChainComponent implements OnInit {
   }
 
 
-  async loadScripMaster() {
-    try {
-      const symbol = this.selectedScript;
-      const expiry =this.selectedExpiry;
-      const data = await this.scripMasterService.scripMasterInit(symbol);
-      debugger
-      console.log('Scrip Master Data:', data);
-      this.fetchOptionChainData();
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
+  // async loadScripMaster() {
+  //   try {
+  //     const symbol = this.selectedScript;
+  //     const expiry =this.selectedExpiry;
+  //     const data = await this.scripMasterService.scripMasterInit(symbol);
+  //     debugger
+  //     console.log('Scrip Master Data:', data);
+  //     //this.fetchOptionChainData();
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // }
 
 
   

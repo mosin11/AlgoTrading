@@ -954,6 +954,9 @@ var HSWebSocket = (function() {
             case ReqTypeValues.SCRIP_SUBS:
                 req = prepareSubsUnSubsRequest(scrips, BinRespTypes.SUBSCRIBE_TYPE, SCRIP_PREFIX, channelnum);
                 break;
+            case ReqTypeValues.OPC_SUBS:
+                req = getOpChainSubsRequest(scrips, BinRespTypes.OPC_SUBSCRIBE, SCRIP_PREFIX, channelnum);
+                break;
             case ReqTypeValues.SCRIP_UNSUBS:
                 req = prepareSubsUnSubsRequest(scrips, BinRespTypes.UNSUBSCRIBE_TYPE, SCRIP_PREFIX, channelnum);
                 break;

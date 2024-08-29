@@ -3,8 +3,9 @@
     <!-- Input for Script Symbol -->
     <div class="col-md-2 d-flex ">
       <div class="dropdown">
-        <button class="btn bg-secondary text-white dropdown-toggle" type="button" id="scriptDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          {{ getDisplayName(selectedScript)  || 'Select Script' }}
+        <button class="btn bg-secondary text-white dropdown-toggle" type="button" id="scriptDropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          {{ getDisplayName(selectedScript) || 'Select Script' }}
         </button>
         <ul class="dropdown-menu overflow-auto bg-secondary text-white" aria-labelledby="scriptDropdown">
           <li *ngFor="let script of scriptList">
@@ -18,7 +19,8 @@
     <!-- Dropdown for Expiry Dates -->
     <div class="col-md-2 d-flex">
       <div class="dropdown">
-        <button class="btn bg-secondary text-white dropdown-toggle" type="button" id="expiryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn bg-secondary text-white dropdown-toggle" type="button" id="expiryDropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">
           {{ selectedExpiry || 'Select Expiry' }}
         </button>
         <ul class="dropdown-menu overflow-auto bg-secondary text-white" aria-labelledby="expiryDropdown">
@@ -33,95 +35,213 @@
   </div>
 
   <div class="text-center border border-dark rounded-1" style="background-color: #3e93b8 !important;">
-    <div *ngIf="presentIndexData?.length">
-      <span *ngFor="let data of presentIndexData" >
-      <h2>Option Chain Data</h2>
-      <span>{{ data.iv }}</span>
-    </span>
-  </div>
+
+    <h2>Option Chain Data</h2>
+    <span>{{ ivValue }}</span>
+
   </div>
 
-  <div class="table-responsive table-container border border-dark rounded-1">
-    <table class="table  table-hover">
+  <div class="table-responsive table-container">
+    <!-- <table class="table table-dark  table-hover table-sm border-dark table-bordered">
       <thead class="sticky-lg-top">
         <tr>
           <th colspan="5" class="text-center bg-primary text-white">CALLS</th>
-          <th rowspan="2"  class="text-center bg-secondary">Strike Price</th>
+          <th></th>
           <th colspan="5" class="text-center bg-primary text-white">PUTS</th>
         </tr>
-        <tr>
-          <th class="text-center bg-info col">Volume</th>
-          <th class="text-center bg-info col">OI</th>
-          <th class="text-center bg-info col">OI Chg.(Chg%)</th>
-          <th class="text-center bg-info col">LTP (Chg%)</th>
-          <th class="text-center bg-info col">LTP</th>
-          <th class="text-center bg-info col">LTP</th>
-          <th class="text-center bg-info col">LTP (Chg%)</th>
-          <th class="text-center bg-info col">OI</th>
-          <th class="text-center bg-info col">OI Chg.(Chg%)</th>
-          <th class="text-center bg-info col">Volume</th>
-        </tr>
       </thead>
-      <tbody class="text-center border border-dark table-bordered table-body">
+      <thead class="sticky-lg-top" style="margin-top: 1%; z-index: index 2;">
+        <tr>
+          <th class="text-center">Volume</th>
+          <th class="text-center">OI</th>
+          <th class="text-center">OI Chg.(Chg%)</th>
+          <th class="text-center">LTP (Chg%)</th>
+          <th class="text-center">LTP</th>
+          <th class="text-center bg-secondary">Strike Price</th>
+          <th class="text-center">LTP</th>
+          <th class="text-center">LTP (Chg%)</th>
+          <th class="text-center">OI</th>
+          <th class="text-center">OI Chg.(Chg%)</th>
+          <th class="text-center">Volume</th>
+        </tr>
+      </thead> -->
+      <!-- <tbody class="text-center">
         <tr *ngFor="let option of optionsData">
           <td
-          [ngClass]="{
-            'bg-secondary  ': (option.strikeprice | stringToNumber) < ivValue, 'bg-light ': (option.strikeprice | stringToNumber) > ivValue,
-            'text-success': !option.CallVolume.includes('-'), 'text-danger': option.CallVolume.includes('-')}"
-          >{{ option.CallVolume }}</td>
-          <td
-          [ngClass]="{
-            'bg-secondary ': (option.strikeprice | stringToNumber) < ivValue, 'bg-light ': (option.strikeprice | stringToNumber) > ivValue,
-            'text-success': !option.CallOI.includes('-'), 'text-danger': option.CallOI.includes('-')}"
-          >{{ option.CallOI }}</td>
-          <td [ngClass]="{
-            'bg-secondary ': (option.strikeprice | stringToNumber) < ivValue, 'bg-light ': (option.strikeprice | stringToNumber) > ivValue,
-            'text-success': !option.CallOIPerChg.includes('-'), 'text-danger': option.CallOIPerChg.includes('-')}">
-            {{ option.CallOIPerChg }}
-          </td>
-         
-          <td [ngClass]="{
-            'bg-secondary ': (option.strikeprice | stringToNumber) < ivValue, ' bg-light': (option.strikeprice | stringToNumber) > ivValue,
-            'text-success': !option.CallPricePerChange.includes('-'), 'text-danger': option.CallPricePerChange.includes('-')}">
-            {{ option.CallPricePerChange }}
+            [ngClass]="{
+              'bg-dark': (option.strikeprice | stringToNumber) < ivValue,
+              'bg-light': (option.strikeprice | stringToNumber) > ivValue,
+              'text-success fs-6 fw-bolder': option.CallVolume && !option.CallVolume.includes('-'),
+              'text-danger': option.CallVolume && option.CallVolume.includes('-')
+            }"
+          >
+            {{ option.CallVolume || 'N/A'}}
           </td>
           <td
-          [ngClass]="{
-            'bg-secondary ': (option.strikeprice | stringToNumber) < ivValue, 'bg-light ': (option.strikeprice | stringToNumber) > ivValue,
-            'text-success': !option.CallLTP.includes('-'), 'text-danger': option.CallLTP.includes('-')}"
-          >{{ option.CallLTP }}</td>
-          <td
-          [ngClass]="{
-            'bg-secondary ': (option.strikeprice | stringToNumber) < ivValue, ' bg-light': (option.strikeprice | stringToNumber) > ivValue,}"
-          >{{ option.strikeprice }}</td>
-          <td [ngClass]="{
-            'bg-secondary ': (option.strikeprice | stringToNumber) > ivValue, ' bg-secondary': (option.strikeprice | stringToNumber) > ivValue,
-            'text-success': !option.PutLTP.includes('-'), 'text-danger': option.PutLTP.includes('-')}">
-            {{ option.PutLTP }}
-          </td>
-          <td [ngClass]="{
-            'bg-secondary ': (option.strikeprice | stringToNumber) > ivValue, ' bg-secondary': (option.strikeprice | stringToNumber) > ivValue,
-            'text-success': !option.PutPriceperChange.includes('-'), 'text-danger': option.PutPriceperChange.includes('-')}">
-            {{ option.PutPriceperChange }}
+            [ngClass]="{
+              'bg-dark': (option.strikeprice | stringToNumber) < ivValue,
+              'bg-light': (option.strikeprice | stringToNumber) > ivValue,
+              'text-success fs-6 fw-bolder': option.CallOI && !option.CallOI.includes('-'),
+              'text-danger': option.CallOI && option.CallOI.includes('-')
+            }"
+          >
+            {{ option.CallOI || 'N/A'}}
           </td>
           <td
-          [ngClass]="{
-            'bg-secondary  ': (option.strikeprice | stringToNumber) > ivValue, ' bg-secondary': (option.strikeprice | stringToNumber) > ivValue,
-            'text-success': !option.PutOI.includes('-'), 'text-danger': option.PutOI.includes('-')}"
-          >{{ option.PutOI }}</td>
-          <td [ngClass]="{
-            'bg-secondary  ': (option.strikeprice | stringToNumber) > ivValue, ' bg-secondary': (option.strikeprice | stringToNumber) > ivValue,
-            'text-success': !option.PutOIPerChg.includes('-'), 'text-danger': option.PutOIPerChg.includes('-')}">
-            {{ option.PutOIPerChg }}
+            [ngClass]="{
+              'bg-dark': (option.strikeprice | stringToNumber) < ivValue,
+              'bg-light': (option.strikeprice | stringToNumber) > ivValue,
+              'text-success fs-6 fw-bolder': option.CallOIPerChg && !option.CallOIPerChg.includes('-'),
+              'text-danger': option.CallOIPerChg && option.CallOIPerChg.includes('-')
+            }"
+          >
+            {{ option.CallOIPerChg || 'N/A' }}
           </td>
           <td
-          [ngClass]="{
-            'bg-secondary ': (option.strikeprice | stringToNumber) > ivValue, ' bg-secondary': (option.strikeprice | stringToNumber) > ivValue,
-            'text-success': !option.PutVolume.includes('-'), 'text-danger': option.PutVolume.includes('-')}"
-          >{{ option.PutVolume }}</td>
+            [ngClass]="{
+              'bg-dark': (option.strikeprice | stringToNumber) < ivValue,
+              'bg-light': (option.strikeprice | stringToNumber) > ivValue,
+              'text-success fs-6 fw-bolder': option.CallPricePerChange && !option.CallPricePerChange.includes('-'),
+              'text-danger': option.CallPricePerChange && option.CallPricePerChange.includes('-')
+            }"
+          >
+            {{ option.CallPricePerChange  || 'N/A'}}
+          </td>
+          <td
+            [ngClass]="{
+              'bg-dark': (option.strikeprice | stringToNumber) < ivValue,
+              'bg-light': (option.strikeprice | stringToNumber) > ivValue,
+              'text-success fs-6 fw-bolder':option.CallLTP && !option.CallLTP.includes('-'),
+              'text-danger': option.CallLTP && option.CallLTP.includes('-')
+            }"
+          >
+            {{ option.CallLTP || 'N/A' }}
+          </td>
+          <td
+            [ngClass]="{
+              'bg-secondary': (option.strikeprice | stringToNumber) < ivValue,
+              'bg-light text-dark': (option.strikeprice | stringToNumber) > ivValue
+            }"
+          >
+            {{ option.strikeprice || 'N/A' }}
+          </td>
+          <td
+            [ngClass]="{
+              'bg-dark': (option.strikeprice | stringToNumber) >ivValue,
+              'bg-light': (option.strikeprice | stringToNumber) < ivValue,
+              'text-success fs-6 fw-bolder': option.PutLTP && !option.PutLTP.includes('-'),
+              'text-danger': option.PutLTP && option.PutLTP.includes('-')
+            }"
+          >
+            {{ option.PutLTP || 'N/A' }}
+          </td>
+          <td
+            [ngClass]="{
+              'bg-dark': (option.strikeprice | stringToNumber) > ivValue,
+              'bg-light': (option.strikeprice | stringToNumber) < ivValue,
+              'text-success fs-6 fw-bolder': option.PutPriceperChange && !option.PutPriceperChange.includes('-'),
+              'text-danger': option.PutPriceperChange && option.PutPriceperChange.includes('-')
+            }"
+          >
+            {{ option.PutPriceperChange || 'N/A' }}
+          </td>
+          <td
+            [ngClass]="{
+              'bg-dark': (option.strikeprice | stringToNumber) > ivValue,
+              'bg-light': (option.strikeprice | stringToNumber) < ivValue,
+              'text-success fs-6 fw-bolder': option.PutOI && !option.PutOI.includes('-'),
+              'text-danger': option.PutOI && option.PutOI.includes('-')
+            }"
+          >
+            {{ option.PutOI || 'N/A' }}
+          </td>
+          <td
+            [ngClass]="{
+              'bg-dark': (option.strikeprice | stringToNumber) > ivValue,
+              'bg-light': (option.strikeprice | stringToNumber) < ivValue,
+              'text-success fs-6 fw-bolder': option.PutOIPerChg && !option.PutOIPerChg.includes('-'),
+              'text-danger': option.PutOIPerChg && option.PutOIPerChg.includes('-')
+            }"
+          >
+            {{ option.PutOIPerChg || 'N/A' }}
+          </td>
+          <td
+            [ngClass]="{
+              'bg-dark': (option.strikeprice | stringToNumber) > ivValue,
+              'bg-light': (option.strikeprice | stringToNumber) < ivValue,
+              'text-success fs-6 fw-bolder': option.PutVolume && !option.PutVolume.includes('-'),
+              'text-danger': option.PutVolume && option.PutVolume.includes('-')
+            }"
+          >
+            {{ option.PutVolume || 'N/A' }}
+          </td>
+        </tr>
+      </tbody> -->
+
+      <!-- <tbody class="text-center">
+        <tr *ngFor="let strikePrice of strikePriceResult" *ngFor="let item of liveData$ | async">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{ strikePrice }}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       </tbody>
-      
+    </table> -->
+
+    <table mat-table [dataSource]="liveData$" class="mat-elevation-z8">
+  
+      <ng-container matColumnDef="volume">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Volume </th>
+        <td mat-cell *matCellDef="let element"> {{element.volume}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="oi">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> OI </th>
+        <td mat-cell *matCellDef="let element"> {{element.oi}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="oiChg">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> OI Chg.(Chg%) </th>
+        <td mat-cell *matCellDef="let element"> {{element.oiChg}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="ltpChg">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> LTP (Chg%) </th>
+        <td mat-cell *matCellDef="let element"> {{element.ltpChg}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="ltp">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> LTP </th>
+        <td mat-cell *matCellDef="let element"> {{element.ltp}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="strikePrice">
+        <th mat-header-cell *matHeaderCellDef class="text-center bg-secondary"> Strike Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.strikePrice}} </td>
+      </ng-container>
+    
+      <!-- Add more columns as needed -->
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <table mat-table [dataSource]="strikePriceResult" class="mat-elevation-z8">
+      <ng-container matColumnDef="strikePrice">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Strike Price </th>
+        <td mat-cell *matCellDef="let price" class="text-center"> {{price}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="['strikePrice']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['strikePrice']"></tr>
+    </table>
+    
+
   </div>
 </div>

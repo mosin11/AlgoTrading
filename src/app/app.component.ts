@@ -1,6 +1,9 @@
 import { Component,HostListener ,OnInit  } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import jwtDecode from 'jwt-decode';
+import { ScripMasterService } from './services/scrip-master.service';
+
+
 
 @Component({
   selector: 'app-root',
@@ -11,9 +14,14 @@ import jwtDecode from 'jwt-decode';
 })
 export class AppComponent implements OnInit {
   title = 'AlgoTrading';
+  
+  constructor(
+    private scripMasterService: ScripMasterService
+  ) { }
   ngOnInit() {
     this.clearLocalStorageOnceDaily();
     this.checkTokenExpiration();
+    this.loadScripMaster();
   }
   clearLocalStorageOnceDaily() {
     const lastClear = localStorage.getItem('lastClearDate');
@@ -36,6 +44,17 @@ export class AppComponent implements OnInit {
       if (currentDate > expirationDate) {
         localStorage.clear(); // Clear local storage if token is expired
       }
+    }
+  }
+
+  
+  async loadScripMaster() {
+    try {
+      const data = await this.scripMasterService.scripMasterInit("NiftyBank");
+      //console.log('Scrip Master Data:', data);
+      //this.fetchOptionChainData();
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
 

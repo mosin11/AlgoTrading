@@ -29,27 +29,49 @@ export class ApiService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(this.submitOTP, body, { headers });
   }
-
   async optionchain(symbol: string, expirydate: string): Promise<any> {
     const token = localStorage.getItem("token");
     const sid = localStorage.getItem("sid");
     const accessToken = localStorage.getItem("accessToken");
-
+  
     if (!this.isValidSymbol(symbol)) {
       console.error('Selected symbol in service is empty or invalid.');
-      return Promise.reject('Invalid symbol');
+      throw new Error('Invalid symbol');
     }
-
+  
+    if (!token || !sid || !accessToken) {
+      console.error('Missing authentication information.');
+      throw new Error('Missing authentication information');
+    }
+  
     const body = JSON.stringify({ symbol, expirydate, token, sid, accessToken });
-    
-    return fetch(this.optionchainURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: body
-    }).then(response => response.json());
+  
+    try {
+      const response = await fetch(this.optionchainURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: body
+      });
+  
+      if (!response.ok) {
+        // Handle HTTP errors
+        const errorText = await response.text();
+        console.error('HTTP error:', response.status, errorText);
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+  
+      // Assuming the response is JSON
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      // Handle network or parsing errors
+      console.error('Fetch error:', error);
+      throw error;
+    }
   }
+  
 
   
   async expiryDates(symbol: string): Promise<any> {

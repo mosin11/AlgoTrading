@@ -50,7 +50,36 @@ export interface OptionData {
     tk: string;
     e: string;
   }
+  export interface LiveData {
+    ftm0: string;   // Foot Marker 0
+    dtm1: string;   // Date Marker 1
+    fdtm: string;   // Full Date Time Marker
+    ltt: string;    // Last Trade Time
+    v: string;      // Volume
+    ltp: string;    // Last Trade Price
+    ltq: string;    // Last Trade Quantity
+    tbq: string;    // Total Bid Quantity
+    tsq: string;    // Total Sell Quantity
+    bp: string;     // Bid Price
+    sp: string;     // Sell Price
+    ap: string;     // Ask Price
+    lo: string;     // Low Price
+    h: string;      // High Price
+    lcl: string;    // Lower Control Limit
+    ucl: string;    // Upper Control Limit
+    op: string;     // Opening Price
+    c: string;      // Closing Price
+    oi: string;     // Open Interest
+    mul: string;    // Multiplier
+    prec: string;   // Precision
+    cng: string;    // Change
+    nc: string;     // New Contract
+    to: string;     // Turnover
+    name: string;   // Name
+    tk: string;     // Token
+    e: string;      // Event
+    ts: string;     // Timestamp
+  }
   
- 
   
   

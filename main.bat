@@ -3,7 +3,7 @@
 REM Initialize a new Git repository
 git init
 git add .
-git commit -m "live optiond data added"
+git commit -m "indexdb added for master script"
 git branch -M main
 
 REM Wait for 5 seconds before proceeding

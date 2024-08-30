@@ -1,41 +1,41 @@
 
-  import { Injectable, Inject, Renderer2, RendererFactory2 } from '@angular/core';
-  import { DOCUMENT } from '@angular/common';
-  import { Subject } from 'rxjs';
+import { Injectable, Inject, Renderer2, RendererFactory2 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Subject } from 'rxjs';
 
 
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class KotakWebSocketService {
-    private renderer: Renderer2;
-    private userWS: HSWebSocket | null = null;
-    private hsWs: WebSocket | null = null;
-    private messageQueue: any[] = []; // Queue for messages to be sent
-    private userWSMessageSubject = new Subject<MessageEvent>();
-    private hsWSMessageSubject = new Subject<MessageEvent>();
-    userWSMessage$ = this.userWSMessageSubject.asObservable();
-    hsWSMessage$ = this.hsWSMessageSubject.asObservable();
+@Injectable({
+  providedIn: 'root'
+})
+export class KotakWebSocketService {
+  private renderer: Renderer2;
+  private userWS: HSWebSocket | null = null;
+  private hsWs: WebSocket | null = null;
+  private messageQueue: any[] = []; // Queue for messages to be sent
+  private userWSMessageSubject = new Subject<MessageEvent>();
+  private hsWSMessageSubject = new Subject<MessageEvent>();
+  userWSMessage$ = this.userWSMessageSubject.asObservable();
+  hsWSMessage$ = this.hsWSMessageSubject.asObservable();
 
-    constructor(@Inject(DOCUMENT) private document: Document, private rendererFactory: RendererFactory2) {
-      this.renderer = this.rendererFactory.createRenderer(null, null);
-      this.loadScript('assets/hslib.js');
-    }
-     loadScript(url: string): Promise<void> {
-      return new Promise((resolve, reject) => {
-        const script = this.renderer.createElement('script');
-        script.src = url;
-        script.onload = () => {
-          console.log('Script loaded successfully.');
-          resolve();
-        };
-        script.onerror = () => {
-          console.error('Script loading failed.');
-          reject(new Error('Script loading failed.'));
-        };
-        this.renderer.appendChild(this.document.body, script);
-      });
-    }
+  constructor(@Inject(DOCUMENT) private document: Document, private rendererFactory: RendererFactory2) {
+    this.renderer = this.rendererFactory.createRenderer(null, null);
+    this.loadScript('assets/hslib.js');
+  }
+  loadScript(url: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const script = this.renderer.createElement('script');
+      script.src = url;
+      script.onload = () => {
+        console.log('Script loaded successfully.');
+        resolve();
+      };
+      script.onerror = () => {
+        console.error('Script loading failed.');
+        reject(new Error('Script loading failed.'));
+      };
+      this.renderer.appendChild(this.document.body, script);
+    });
+  }
   // Connect to HSM WebSocket
   connectHsm(token: string, sid: string, callback: (msg: MessageEvent) => void) {
     const url = 'wss://mlhsm.kotaksecurities.com';
@@ -49,8 +49,8 @@
         type: 'cn'
       };
       this.userWS?.send(JSON.stringify(jObj));
-       // Send any queued messages
-       while (this.messageQueue.length > 0) {
+      // Send any queued messages
+      while (this.messageQueue.length > 0) {
         const message = this.messageQueue.shift();
         this.userWS?.send(JSON.stringify(message));
       }
@@ -66,8 +66,8 @@
     };
 
     this.userWS.onmessage = (msg: MessageEvent) => {
-     // console.log('[onmessage HSM Socket message]: Received message', msg);
-      this.userWSMessageSubject.next(msg); 
+      // console.log('[onmessage HSM Socket message]: Received message', msg);
+      this.userWSMessageSubject.next(msg);
       callback(msg);
     };
   }
@@ -76,7 +76,7 @@
     this.hsWs = new WebSocket(url);
 
     this.hsWs.onopen = () => {
-     // console.log(`[onopen HSI Socket]: Connected to "${url}"`);
+      // console.log(`[onopen HSI Socket]: Connected to "${url}"`);
       const hsijObj = {
         type: 'cn',
         Authorization: token,
@@ -120,4 +120,22 @@
       console.error('HS WebSocket is not connected.');
     }
   }
+
+  // Close HSM WebSocket connection
+  closeHsmConnection() {
+    if (this.userWS) {
+      this.userWS.close();
+      this.userWS = null; // Clear the reference
+      console.log('[closeHsmConnection]: HSM WebSocket connection closed.');
+    }
   }
+
+  // Close HSI WebSocket connection
+  closeHsiConnection() {
+    if (this.hsWs) {
+      this.hsWs.close();
+      this.hsWs = null; // Clear the reference
+      console.log('[closeHsiConnection]: HSI WebSocket connection closed.');
+    }
+  }
+}

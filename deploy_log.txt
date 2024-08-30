@@ -1,14 +1,5 @@
-index.html could not be copied to 404.html. Proceeding without it.
-Diagnostic info: ENOENT: no such file or directory, lstat 'E:\Kotak\AlgoTrading\dist\frontend\browser\index.html'
-.nojekyll file created
-🚀 Uploading via git, please wait...
-Cloning https://github.com/mosin11/AlgoTrading.git into E:\Kotak\AlgoTrading\node_modules\.cache\gh-pages\https!github.com!mosin11!AlgoTrading.git
-Cleaning
-Fetching origin
-Checking out origin/gh-pages 
-Removing files
-Copying files
-Adding all
-Committing
-Pushing
-🌟 Successfully published via angular-cli-ghpages! Have a nice day!
+Need to install the following packages:
+angular-cli-ghpages@2.0.1
+Ok to proceed? (y) 
+^CTerminate batch job (Y/N)? 
+^C

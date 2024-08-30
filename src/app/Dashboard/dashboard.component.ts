@@ -57,7 +57,7 @@ export class DashboardComponent {
     if (psconsole) psconsole.scrollTop = psconsole.scrollHeight - psconsole.clientHeight;
   }
 
-  consoleLog1(msg: MessageEvent) {debugger
+  consoleLog1(msg: MessageEvent) {
     const d = new Date();
     this.streamScrips1 += `${d}\n${msg.data}\n\n`;
     console.log("this.streamScrips1",this.streamScrips1)
@@ -91,6 +91,12 @@ export class DashboardComponent {
       scrips: this.subDepth,
       channelnum: channelNumber
     });
+  }
+  sendCommand(command: string, channel: string) {
+    this.wsService.closeHsmConnection();
+  }
+  resumeChannel() {
+    this.wsService.closeHsiConnection();
   }
 
 }

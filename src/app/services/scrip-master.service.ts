@@ -11,6 +11,7 @@ export class ScripMasterService {
   private fileBasePathUrl = "https://gw-napi.kotaksecurities.com/Files/1.0/masterscrip/v1/file-paths"; // Assuming you have a base URL in your environment files
   private bearerToken = localStorage.getItem('token') || ''; // Assuming you have a token in your environment files
   data: any[] = [];
+   masterScriptData:any[]=[];
   constructor(private csvProcessingServiceService: CsvProcessingServiceService) { }
   ScriptFilesPaths: any[] = [];
   nseCMAndnseFOScriptPath: any[] = [];
@@ -73,15 +74,21 @@ export class ScripMasterService {
         //const processedData = this.csvProcessingServiceService.processCsvUrls(matchingFiles);
         console.time("processCsvUrls process time:");
         this.nseCMAndnseFOScriptPath = matchingFiles;
+        const resultsdata = await new Promise<any[]>((resolve, reject) => {
         this.csvProcessingServiceService.processCsvUrls(matchingFiles).subscribe({
           next: results => {
             this.setAllScriptData(results);
-            // console.log('Results:', this.allScriptData);
+            //console.log('Results:', results);
+            resolve(results);
             // Handle the results here
           },
-          error: err => console.error('Error:', err),
+          error: err => {
+            console.error('Error:', err);
+            reject(err);
+          },
           complete: () => console.log('Completed processing URLs')
         });
+      });
         console.timeEnd("processCsvUrls process time:");
 
 
@@ -104,8 +111,9 @@ export class ScripMasterService {
         // } else {
         //   return { Error: 'Exchange segment not found' }; // Return an error if no files were found
         // }
+        return resultsdata;
       }
-      return scripReport;
+      return this.masterScriptData;
     } catch (error) {
       return { error };
     }
@@ -141,8 +149,9 @@ export class ScripMasterService {
   // }
 
   setAllScriptData(data: any[]): void {
-    console.log("setAllScriptData ",data)
+    //console.log("setAllScriptData ",data)
     this.allScriptDataSubject.next(data);
+     this.masterScriptData=data;
   }
 
   // Method to get allScriptData as an observable

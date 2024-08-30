@@ -22,7 +22,13 @@
 
       <button (click)="wconnect('Hsm')">Connect HSM</button>
       <button (click)="wconnect('Hsi')">Connect HSI</button>
-      
+     <!-- app.component.html -->
+<button (click)="sendCommand('cp', channelNumber)" class="btn btn-danger">Pause</button>
+<button (click)="sendCommand('cr', channelNumber)" class="btn btn-success">Resume</button>
+
+<!-- Add an input field for the channel number -->
+<input type="text" [(ngModel)]="channelNumber" placeholder="Enter Channel Number" />
+ 
       <button (click)="subscribeToScrips()">Subscribe Scrips</button>
       <button (click)="subscribeToIndices()">Subscribe Indices</button>
       <button (click)="subscribeToDepth()">Subscribe Depth</button>

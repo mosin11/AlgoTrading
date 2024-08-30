@@ -63,7 +63,7 @@ function sendJsonArrResp(a) {
 }
 function HSDebug(a) {
     if (HSD_Flag) {
-        console.log(a)
+       // console.log(a)
     }
 }
 function HSIDebug(a) {
@@ -1169,7 +1169,7 @@ var ScripTopicData = (function() {
                             val = getFormatDate(val)
                         }
                     }
-                    console.log(index + ":" + dataType.name + ":" + val.toString());
+                    //console.log(index + ":" + dataType.name + ":" + val.toString());
                     jsonRes[dataType.name] = val.toString()
                 }
             }
@@ -1256,7 +1256,7 @@ var IndexTopicData = (function() {
                             val = getFormatDate(val)
                         }
                     }
-                    console.log(index + ":" + dataType.name + ":" + val.toString());
+                   // console.log(index + ":" + dataType.name + ":" + val.toString());
                     jsonRes[dataType.name] = val.toString()
                 }
             }

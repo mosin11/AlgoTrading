@@ -40,7 +40,7 @@ export class CsvProcessingServiceService {
     }
     return from(urls).pipe(
       mergeMap(url => {
-        console.log(`Processing URL: ${url}`);
+       // console.log(`Processing URL: ${url}`);
         return this.processCsvUrl(url);
       }, this.CONCURRENCY_LIMIT),
       bufferCount(urls.length), // Buffer results by the number of URLs
@@ -59,12 +59,12 @@ export class CsvProcessingServiceService {
   
 
   private processCsvUrl(url: string): Observable<any[]> {
-    console.log(`Processing URL: ${url}`);
+   // console.log(`Processing URL: ${url}`);
   
     return from(fetch(url)
       .then(response => {
        // console.log('Received response from URL:', response);
-       console.log("response in processCsvUrl ", response);
+       //console.log("response in processCsvUrl ", response);
         return response.text();
       })
     ).pipe(
@@ -124,7 +124,7 @@ private processCsvChunk(chunk: string): Observable<CsvRow[]> {
             }
           });
           return filteredRow;
-        }).filter((row: Partial<CsvRow>) => row.pSymbolName === 'NIFTY'); // Further filter if needed
+        }) //.filter((row: Partial<CsvRow>) => row.pSymbolName === pSymbolName); // Further filter if needed
 
         // Then, divide the `dStrikePrice;` values by 100 if it exists
         const processedData = filteredRows.map((row: Partial<CsvRow>) => {
@@ -136,7 +136,7 @@ private processCsvChunk(chunk: string): Observable<CsvRow[]> {
             if (!isNaN(strikePrice)) {
               
               row[strikePriceKey] = (strikePrice / 100).toFixed(0); // Adjust precision as needed
-              console.log("strikePrice is",row[strikePriceKey])
+              //console.log("strikePrice is",row[strikePriceKey])
             }
           }
           return row;

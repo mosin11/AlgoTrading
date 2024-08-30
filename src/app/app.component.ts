@@ -2,6 +2,7 @@ import { Component,HostListener ,OnInit  } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { ScripMasterService } from './services/scrip-master.service';
+import { IndexedDbService } from './services/indexed-db.service';
 
 
 
@@ -16,9 +17,11 @@ export class AppComponent implements OnInit {
   title = 'AlgoTrading';
   
   constructor(
-    private scripMasterService: ScripMasterService
+    private scripMasterService: ScripMasterService,
+    private indexedDbService: IndexedDbService,
   ) { }
   ngOnInit() {
+    this.indexedDbService.performDailyDeletion();
     this.clearLocalStorageOnceDaily();
     this.checkTokenExpiration();
     this.loadScripMaster();
@@ -47,15 +50,40 @@ export class AppComponent implements OnInit {
     }
   }
 
-  
   async loadScripMaster() {
     try {
-      const data = await this.scripMasterService.scripMasterInit("NiftyBank");
-      //console.log('Scrip Master Data:', data);
+      const masterDataScript = await this.scripMasterService.scripMasterInit("NiftyBank");
+      //console.log('Scrip Master Data:', masterDataScript);
+      const currentTimestamp = this.indexedDbService.getCurrentTimestamp();
+    const lastDeletionTimestamp = this.indexedDbService.getLastDeletionTimestamp();
+    // Check if 24 hours (86400000 milliseconds) have passed
+    if (!lastDeletionTimestamp || (currentTimestamp - lastDeletionTimestamp) >= 86400000) {
+
+      this.addNewData(masterDataScript);
+    } else {
+      console.log('Data already Added for the day');
+    }
       //this.fetchOptionChainData();
     } catch (error) {
       console.error('Error:', error);
     }
   }
+ //  method to add new data
+ public addNewData(data: any[]): void {
+  data.forEach(item => {
+    this.indexedDbService.addData(item);
+  });
+  console.log("addNewData successfully")
+}
+
+
+
+
+
+
+
+
+
+
 
 }

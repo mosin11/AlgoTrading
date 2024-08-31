@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { KotakWebSocketService } from '../services/kotak-websocket.service';
 import { OptionChainComponent } from "../option-chain/option-chain.component";
+import { Router } from '@angular/router';
+import { TokenServiceService } from '../services/token-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +27,10 @@ export class DashboardComponent {
   userPassword: string = '';
   streamScrips1: string = '';
 
-  constructor(private wsService: KotakWebSocketService) {}
+  constructor(private wsService: KotakWebSocketService,
+    private router: Router,
+    private tokenService: TokenServiceService
+  ) {}
  
   ngOnInit() {
     // Retrieve token and sid from localStorage on component initialization
@@ -98,5 +103,25 @@ export class DashboardComponent {
   resumeChannel() {
     this.wsService.closeHsiConnection();
   }
+
+  logout() {
+    // Clear any stored tokens or session information
+    this.token = '';
+    this.sid = '';
+    this.handshakeServerId = '';
+    this.channelNumber = '';
+    this.streamScrips = '';
+    this.streamScrips1 = '';
+
+    // Optionally, clear session storage or local storage
+    sessionStorage.clear();
+    const lastcleartoken =this.tokenService.getLastClearDate()
+    if (lastcleartoken) {
+      this.tokenService.clearTokens();
+      this.router.navigate(['/login']);
+    }
+    // Navigate to the login page or any other route
+  }
+
 
 }

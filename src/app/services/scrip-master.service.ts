@@ -7,7 +7,7 @@ import { from, of, Observable, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ScripMasterService {
-
+  private BASE_URL="http://localhost:3000"
   private fileBasePathUrl = "https://gw-napi.kotaksecurities.com/Files/1.0/masterscrip/v1/file-paths"; // Assuming you have a base URL in your environment files
   private bearerToken = localStorage.getItem('token') || ''; // Assuming you have a token in your environment files
   data: any[] = [];
@@ -72,46 +72,46 @@ export class ScripMasterService {
           exchangeSegmentKey.some(key => file.toLowerCase().includes(key.toLowerCase()))
         );
         //const processedData = this.csvProcessingServiceService.processCsvUrls(matchingFiles);
-        console.time("processCsvUrls process time:");
-        this.nseCMAndnseFOScriptPath = matchingFiles;
-        const resultsdata = await new Promise<any[]>((resolve, reject) => {
-        this.csvProcessingServiceService.processCsvUrls(matchingFiles).subscribe({
-          next: results => {
-            this.setAllScriptData(results);
-            //console.log('Results:', results);
-            resolve(results);
-            // Handle the results here
-          },
-          error: err => {
-            console.error('Error:', err);
-            reject(err);
-          },
-          complete: () => console.log('Completed processing URLs')
-        });
-      });
-        console.timeEnd("processCsvUrls process time:");
+      //   console.time("processCsvUrls process time:");
+      //   this.nseCMAndnseFOScriptPath = matchingFiles;
+      //   const resultsdata = await new Promise<any[]>((resolve, reject) => {
+      //   this.csvProcessingServiceService.processCsvUrls(matchingFiles).subscribe({
+      //     next: results => {
+      //       this.setAllScriptData(results);
+      //       //console.log('Results:', results);
+      //       resolve(results);
+      //       // Handle the results here
+      //     },
+      //     error: err => {
+      //       console.error('Error:', err);
+      //       reject(err);
+      //     },
+      //     complete: () => console.log('Completed processing URLs')
+      //   });
+      // });
+      //   console.timeEnd("processCsvUrls process time:");
 
 
-        // if (matchingFiles.length > 0) {
-        //   this.nseCMAndnseFOScriptPath =matchingFiles;
-        //   fetch(`${this.BASE_URL}/data/process-csv`, {
-        //     method: 'POST',
-        //     headers: headers,
-        //     body: JSON.stringify(matchingFiles) // Convert the JavaScript object to a JSON string
-        //   })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //       console.log('Success:', data);
-        //     })
-        //     .catch((error) => {
-        //       console.error('Error:', error);
-        //     });
-        //   //return this.fetchAndParseCsv(matchingFiles); // Return all matching files
-        //   return "" // Return all matching files
-        // } else {
-        //   return { Error: 'Exchange segment not found' }; // Return an error if no files were found
-        // }
-        return resultsdata;
+        if (matchingFiles.length > 0) {
+          this.nseCMAndnseFOScriptPath =matchingFiles;
+          fetch(`${this.BASE_URL}/data/process-csv`, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(matchingFiles) // Convert the JavaScript object to a JSON string
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Success:', data);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+          //return this.fetchAndParseCsv(matchingFiles); // Return all matching files
+          return "" // Return all matching files
+        } else {
+          return { Error: 'Exchange segment not found' }; // Return an error if no files were found
+        }
+       // return resultsdata;
       }
       return this.masterScriptData;
     } catch (error) {

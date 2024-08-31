@@ -102,8 +102,8 @@ export class OptionChainComponent implements OnInit {
     //   .catch(error => {
     //     console.error('Error fetching option chain data', error);
     //   });
-    debugger
-    this.selectedExpiry = this.getExpiryDates(this.masterScript)
+
+    this.expiryDates = this.getExpiryDates(this.masterScript)
     console.log("this.selectedExpiry", this.selectedExpiry)
 
   }

@@ -63,7 +63,7 @@ function sendJsonArrResp(a) {
 }
 function HSDebug(a) {
     if (HSD_Flag) {
-        console.log(a)
+       // console.log(a)
     }
 }
 function HSIDebug(a) {
@@ -954,6 +954,9 @@ var HSWebSocket = (function() {
             case ReqTypeValues.SCRIP_SUBS:
                 req = prepareSubsUnSubsRequest(scrips, BinRespTypes.SUBSCRIBE_TYPE, SCRIP_PREFIX, channelnum);
                 break;
+            case ReqTypeValues.OPC_SUBS:
+                req = getOpChainSubsRequest(scrips, BinRespTypes.OPC_SUBSCRIBE, SCRIP_PREFIX, channelnum);
+                break;
             case ReqTypeValues.SCRIP_UNSUBS:
                 req = prepareSubsUnSubsRequest(scrips, BinRespTypes.UNSUBSCRIBE_TYPE, SCRIP_PREFIX, channelnum);
                 break;
@@ -1166,7 +1169,7 @@ var ScripTopicData = (function() {
                             val = getFormatDate(val)
                         }
                     }
-                    console.log(index + ":" + dataType.name + ":" + val.toString());
+                    //console.log(index + ":" + dataType.name + ":" + val.toString());
                     jsonRes[dataType.name] = val.toString()
                 }
             }
@@ -1253,7 +1256,7 @@ var IndexTopicData = (function() {
                             val = getFormatDate(val)
                         }
                     }
-                    console.log(index + ":" + dataType.name + ":" + val.toString());
+                   // console.log(index + ":" + dataType.name + ":" + val.toString());
                     jsonRes[dataType.name] = val.toString()
                 }
             }
